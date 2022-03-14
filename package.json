@@ -1,0 +1,16 @@
+{
+  "name": "havel",
+  "version": "0.0.1",
+  "description": "streams done … ehm … differently",
+  "main": "index.js",
+  "scripts": {
+    "test": "node bin/test.js"
+  },
+  "repository": {
+  },
+  "author": "Michael Kreil",
+  "license": "MIT",
+  "dependencies": {
+    "duplexify": "^4.1.2"
+  }
+}
