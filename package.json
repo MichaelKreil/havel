@@ -7,6 +7,8 @@
     "test": "node bin/test.js"
   },
   "repository": {
+    "type": "git",
+    "url": "https://github.com/MichaelKreil/havel.git"
   },
   "author": "Michael Kreil",
   "license": "MIT",
