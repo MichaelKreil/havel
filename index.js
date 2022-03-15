@@ -1,8 +1,9 @@
 "use strict"
 
-const havel = require('./lib/basics.js');
+const havel = require('./lib/havel.js');
 
-[
+[	
+	'basics',
 	'buffer',
 	'compress',
 	'keyValue',

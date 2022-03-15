@@ -11,7 +11,7 @@
     "url": "https://github.com/MichaelKreil/havel.git"
   },
   "author": "Michael Kreil",
-  "license": "MIT",
+  "license": "ISC",
   "dependencies": {
     "duplexify": "^4.1.2"
   }
