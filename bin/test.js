@@ -3,7 +3,7 @@
 const havel = require('../index.js');
 
 havel.pipeline(
-	havel.readFile('../data/friends_100.tsv.xz'),
+	havel.readFile('../data/friends_10000.tsv.xz', {showProgress:true}),
 	havel.decompressXZ(),
 	havel.split(),
 	//havel.head(10),
