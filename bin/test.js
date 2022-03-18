@@ -22,14 +22,12 @@ havel.pipeline(
 			throw Error(`${JSON.stringify(e1.key)} >= ${JSON.stringify(e2.key)}`);
 		}
 	}),
-	havel.keyValueToStream(),
-	havel.each(e => {
-		console.log(e);
-	}),
-	havel.streamToKeyValue(),
-	havel.each(e => {
-		console.log(e);
-	}),
+	//havel.keyValueToBuffer(),
+	//havel.keyValueToStream(),
+	//havel.log(),
+	//havel.streamToKeyValue(),
+	//havel.eachPromise(e => e.getValuePromise()),
+	//havel.log(),
 	havel.dump(),
 	//havel.writeFile('../data/friends.bin'),
 	() => console.log('finished')
