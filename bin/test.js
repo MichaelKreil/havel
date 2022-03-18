@@ -23,6 +23,14 @@ havel.pipeline(
 		}
 	}),
 	havel.keyValueToStream(),
-	havel.writeFile('../data/friends.bin'),
+	havel.each(e => {
+		console.log(e);
+	}),
+	havel.streamToKeyValue(),
+	havel.each(e => {
+		console.log(e);
+	}),
+	havel.dump(),
+	//havel.writeFile('../data/friends.bin'),
 	() => console.log('finished')
 )
