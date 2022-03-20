@@ -2,9 +2,6 @@
 
 const Havel = require('../');
 const assert = require('assert');
-const fs = require('fs');
-const os = require('os');
-const { resolve } = require('path');
 
 let text = [];
 for (let i = 0; i < 65535; i++) text[i] = i;
