@@ -4,6 +4,9 @@ const Havel = require('../');
 const assert = require('assert');
 
 Havel.pipeline([Havel.noiseBuffers(1024, 1024), Havel.toArray(buffersIn => {
+
+	require('./helper.js').checkCompleteness('../lib/buffer.js', 'noiseBuffers,fromBuffer,toBuffer,streamToChunks,boxesToStream,streamToBoxes');
+
 	let bufferIn = Buffer.concat(buffersIn);
 
 	describe('buffer', () => {

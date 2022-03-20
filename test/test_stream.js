@@ -13,6 +13,8 @@ let filename = resolve(os.tmpdir(), 'test.tmp');
 
 describe('stream', () => {
 
+	require('./helper.js').checkCompleteness('../lib/stream.js', 'readFile,writeFile');
+
 	describe('readFile(), writeFile()', () => {
 		it('should work without errors', done =>
 			Havel.pipeline([

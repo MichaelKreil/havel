@@ -8,6 +8,8 @@ for (let j = 0; j < bufferIn.length; j += 4) bufferIn.writeUInt32LE(Math.floor(M
 
 describe('process', () => {
 
+	require('./helper.js').checkCompleteness('../lib/process.js', 'spawn,compressXZ,decompressXZ');
+
 	describe('compressXZ() | decompressXZ()', () => {
 		it('should work without errors', done =>
 			Havel.pipeline([

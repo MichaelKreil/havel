@@ -4,6 +4,9 @@ const Havel = require('../');
 const assert = require('assert');
 
 describe('object', () => {
+
+	require('./helper.js').checkCompleteness('../lib/object.js', 'objectToJSON,JSONToObject,serializeObject,deserializeObject');
+
 	let arrayIn = [];
 	for (let i = 0; i < 256; i++) arrayIn[i] = {a:Math.random(), b:Math.random().toString()}
 

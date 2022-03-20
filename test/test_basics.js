@@ -4,6 +4,9 @@ const Havel = require('../');
 const assert = require('assert');
 
 describe('basics', () => {
+
+	require('./helper.js').checkCompleteness('../lib/basics.js', 'dump,each,eachPairWise,fromArray,head,log,map,toArray');
+
 	let arrayIn = Array.from({length: 1000}, () => Math.random());
 
 	describe('fromArray() | toArray()', () => {
