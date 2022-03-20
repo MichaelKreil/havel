@@ -5,11 +5,12 @@ const assert = require('assert');
 
 Havel.pipeline([Havel.noiseBuffers(1024, 1024), Havel.toArray(buffersIn => {
 
-	require('./helper.js').checkCompleteness('../lib/buffer.js', 'noiseBuffers,fromBuffer,toBuffer,streamToChunks,boxesToStream,streamToBoxes');
-
 	let bufferIn = Buffer.concat(buffersIn);
 
 	describe('buffer', () => {
+
+		require('./helper.js').checkCompleteness('../lib/buffer.js', 'noiseBuffers,fromBuffer,toBuffer,streamToChunks,boxesToStream,streamToBoxes');
+
 		describe('noiseBuffers()', () => {
 			it('should work without errors', done =>
 				Havel.pipeline([

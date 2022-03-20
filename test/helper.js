@@ -7,16 +7,22 @@ module.exports = {
 }
 
 function checkCompleteness(moduleName, functionNames) {
-	it('check completeness', done => {
+	describe('check completeness', () => {
 		functionNames = functionNames.split(',');
+
 		let object = require(moduleName)({});
+
 		Object.entries(object).forEach(([key,func]) => {
-			assert.ok(functionNames.includes(key), `function ${key} is not tested yet`)
-			assert.ok(typeof func === 'function', `function ${key} is not a function?`)
+			if (typeof func !== 'function') return;
+			if (functionNames.includes(key)) return;
+			it(`function ${key} is not included in tests yet`)
 		})
+
 		functionNames.forEach(functionName => {
-			assert.ok(object[functionName], `function ${functionName} is missing`)
+			it(`function ${functionName}`, () => {
+				assert.ok(object[functionName], 'must be a defined');
+				assert.equal(typeof object[functionName], 'function', 'must be a function');
+			})
 		})
-		done();
 	})
 }
