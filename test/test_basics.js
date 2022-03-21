@@ -47,7 +47,10 @@ describe('basics', () => {
 		it('should return input array', done => {
 			Havel.pipeline([
 				Havel.fromArray(arrayIn),
-				Havel.eachPairWise(e => 'e'),
+				Havel.eachPairWise((a,b) => {
+					assert.ok(a, 'first value was not set');
+					assert.ok(b, 'second value was not set');
+				}),
 				Havel.toArray(arrayOut => {
 					assert.deepEqual(arrayIn, arrayOut);
 					done();

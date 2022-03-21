@@ -21,8 +21,10 @@ describe('stream', () => {
 				Havel.fromBuffer(bufferIn),
 				Havel.writeFile(filename),
 			], () => {
+				assert.deepEqual(bufferIn, fs.readFileSync(filename));
+				
 				Havel.pipeline([
-					Havel.readFile(filename),
+					Havel.readFile(filename, {progress:true}),
 					Havel.toBuffer(bufferOut => {
 						assert.deepEqual(bufferIn, bufferOut);
 						done();
