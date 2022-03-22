@@ -21,36 +21,42 @@ for (let i = 0; i < 256; i++) {
 describe('keyValue', () => {
 
 	helper.checkCompleteness('../lib/keyValue.js',
-		'bufferToKeyValue,keyValueToBuffer,keyValueToStream,streamToKeyValue,KeyValue'
+		'bufferToKeyValue,keyValueToBuffer,keyValueToStream,streamToKeyValue'
 	);
 
 	describe('keyValueToBuffer() | bufferToKeyValue', () => {
 		it('input === output', done => {
 			let step = helper.stepper();
-			Havel.pipeline(
-				Havel.fromArray(listIn).on('finished', () => step(1)),
-				Havel.keyValueToBuffer().on('finished', () => step(2)),
-				Havel.bufferToKeyValue().on('finished', () => step(3)),
-				Havel.toArray(listOut => {
+			Havel.pipeline()
+				.fromArray(listIn)
+				.finished(() => step(1))
+				.keyValueToBuffer()
+				.finished(() => step(2))
+				.bufferToKeyValue()
+				.finished(() => step(3))
+				.toArray(listOut => {
 					assert.deepEqual(listIn, listOut);
 					step(4)
-				}).on('finished', () => step(5))
-			).on('finished', () => step(6, done))
+				})
+				.finished(() => step(5, done))
 		})
 	})
 
 	describe('keyValueToStream() | streamToKeyValue', () => {
 		it('input === output', done => {
 			let step = helper.stepper();
-			Havel.pipeline(
-				Havel.fromArray(listIn).on('finished', () => step(1)),
-				Havel.keyValueToStream().on('finished', () => step(2)),
-				Havel.streamToKeyValue().on('finished', () => step(3)),
-				Havel.toArray(listOut => {
+			Havel.pipeline()
+				.fromArray(listIn)
+				.finished(() => step(1))
+				.keyValueToStream()
+				.finished(() => step(2))
+				.streamToKeyValue()
+				.finished(() => step(3))
+				.toArray(listOut => {
 					assert.deepEqual(listIn, listOut);
 					step(4);
-				}).on('finished', () => step(5))
-			).on('finished', () => step(6, done))
+				})
+				.finished(() => step(5, done))
 		})
 	})
 })

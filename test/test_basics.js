@@ -15,94 +15,106 @@ describe('basics', () => {
 	describe('fromArray() | toArray()', () => {
 		it('should return input array', done => {
 			let step = helper.stepper();
-			Havel.pipeline(
-				Havel.fromArray(arrayIn).on('finished', () => step(1)),
-				Havel.toArray(arrayOut => {
+			Havel.pipeline()
+				.fromArray(arrayIn)
+				.finished(() => step(1))
+				.toArray(arrayOut => {
 					assert.deepEqual(arrayIn, arrayOut);
 					step(2);
-				}).on('finished', () => step(3)),
-			).on('finished', () => step(4, done))
+				})
+				.finished(() => step(3, done))
 		})
 	})
 
 	describe('dump()', () => {
 		it('should work without errors', done => {
 			let step = helper.stepper();
-			Havel.pipeline(
-				Havel.fromArray(arrayIn).on('finished', () => step(1)),
-				Havel.dump().on('finished', () => step(2))
-			).on('finished', () => step(3, done))
+			Havel.pipeline()
+				.fromArray(arrayIn)
+				.finished(() => step(1))
+				.dump()
+				.finished(() => step(2, done));
 		})
 	})
 
 	describe('each()', () => {
 		it('should return input array', done => {
 			let step = helper.stepper();
-			Havel.pipeline(
-				Havel.fromArray(arrayIn).on('finished', () => step(1)),
-				Havel.each(e => 'e').on('finished', () => step(2)),
-				Havel.toArray(arrayOut => {
+			Havel.pipeline()
+				.fromArray(arrayIn)
+				.finished(() => step(1))
+				.each(e => 'e')
+				.finished(() => step(2))
+				.toArray(arrayOut => {
 					assert.deepEqual(arrayIn, arrayOut);
 					step(3);
-				}).on('finished', () => step(4)),
-			).on('finished', () => step(5, done))
+				})
+				.finished(() => step(4, done))
 		})
 	})
 
 	describe('eachPairWise()', () => {
 		it('should return input array', done => {
 			let step = helper.stepper();
-			Havel.pipeline(
-				Havel.fromArray(arrayIn).on('finished', () => step(1)),
-				Havel.eachPairWise((a,b) => {
+			Havel.pipeline()
+				.fromArray(arrayIn)
+				.finished(() => step(1))
+				.eachPairWise((a,b) => {
 					assert.ok(a, 'first value was not set');
 					assert.ok(b, 'second value was not set');
-				}).on('finished', () => step(2)),
-				Havel.toArray(arrayOut => {
+				})
+				.finished(() => step(2))
+				.toArray(arrayOut => {
 					assert.deepEqual(arrayIn, arrayOut);
 					step(3);
-				}).on('finished', () => step(4)),
-			).on('finished', () => step(5, done))
+				})
+				.finished(() => step(4, done))
 		})
 	})
 
 	describe('head()', () => {
 		it('should return first 100 elements of input array', done => {
 			let step = helper.stepper();
-			Havel.pipeline(
-				Havel.fromArray(arrayIn).on('finished', () => assert.fail('should never happen')),
-				Havel.head(100).on('finished', () => step(1)),
-				Havel.toArray(arrayOut => {
+			Havel.pipeline()
+				.fromArray(arrayIn)
+				.finished(() => assert.fail('should never happen'))
+				.head(100)
+				.finished(() => step(1))
+				.toArray(arrayOut => {
 					assert.equal(arrayOut.length, 100)
 					assert.deepEqual(arrayIn.slice(0,100), arrayOut)
 					step(2);
-				}).on('finished', () => step(3))
-			).on('finished', () => step(4, done))
+				})
+				.finished(() => step(3, done))
 		})
 	})
 
 	describe('log()', () => {
 		it('should work without errors', done => {
 			let step = helper.stepper();
-			Havel.pipeline(
-				Havel.fromArray(['test']).on('finished', () => step(1)),
-				Havel.log().on('finished', () => step(2)),
-				Havel.dump().on('finished', () => step(3))
-			).on('finished', () => step(4, done))
+			Havel.pipeline()
+				.fromArray(['test'])
+				.finished(() => step(1))
+				.log()
+				.finished(() => step(2))
+				.dump()
+				.finished(() => step(3, done))
 		})
 	})
 
 	describe('map()', () => {
 		it('should return input array', done => {
 			let step = helper.stepper();
-			Havel.pipeline(
-				Havel.fromArray(arrayIn).on('finished', () => step(1)),
-				Havel.map(v => v*2).on('finished', () => step(2)),
-				Havel.toArray(arrayOut => {
+			Havel.pipeline()
+				.fromArray(arrayIn)
+				.finished(() => step(1))
+				.map(v => v*2)
+				.finished(() => step(2))
+				.toArray(arrayOut => {
 					assert.deepEqual(arrayIn.map(v => v*2), arrayOut)
 					step(3);
-				}).on('finished', () => step(4))
-			).on('finished', () => step(5, done))
+				})
+				.finished(() => step(4, done))
 		})
 	})
 });

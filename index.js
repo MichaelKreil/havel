@@ -1,8 +1,8 @@
 "use strict"
 
-const havel = require('./lib/havel.js');
+const Havel = require('./lib/havel.js');
 
-[	
+[
 	'basics',
 	'buffer',
 	'compress',
@@ -11,6 +11,6 @@ const havel = require('./lib/havel.js');
 	'process',
 	'stream',
 	'string',
-].forEach(moduleName => require(`./lib/${moduleName}.js`)(havel))
+].forEach(moduleName => require(`./lib/${moduleName}.js`)(Havel))
 
-module.exports = havel;
+module.exports = Havel;

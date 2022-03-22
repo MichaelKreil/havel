@@ -11,18 +11,17 @@ function checkCompleteness(moduleName, functionNames) {
 	describe('check completeness', () => {
 		functionNames = functionNames.split(',');
 
-		let object = require(moduleName)({});
+		let nodes = [];
+		require(moduleName)({registerNode: name => nodes.push(name)})
 
-		Object.entries(object).forEach(([key,func]) => {
-			if (typeof func !== 'function') return;
-			if (functionNames.includes(key)) return;
-			it(`function ${key} is not included in tests yet`)
+		nodes.forEach(name => {
+			if (functionNames.includes(name)) return;
+			it(`function ${name} is not included in tests yet`)
 		})
 
-		functionNames.forEach(functionName => {
-			it(`function ${functionName}`, () => {
-				assert.ok(object[functionName], 'must be a defined');
-				assert.equal(typeof object[functionName], 'function', 'must be a function');
+		functionNames.forEach(name => {
+			it(`function ${name}`, () => {
+				assert.ok(nodes.includes(name), 'is not defined');
 			})
 		})
 	})

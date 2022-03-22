@@ -16,30 +16,36 @@ describe('compress', () => {
 	describe('compressGzip() | decompressGzip()', () => {
 		it('should work without errors', done => {
 			let step = helper.stepper();
-			Havel.pipeline(
-				Havel.fromBuffer(bufferIn).on('finished', () => step(1)),
-				Havel.compressGzip({level:1}).on('finished', () => step(2)),
-				Havel.decompressGzip().on('finished', () => step(3)),
-				Havel.toBuffer(bufferOut => {
+			Havel.pipeline()
+				.fromBuffer(bufferIn)
+				.finished(() => step(1))
+				.compressGzip({level:1})
+				.finished(() => step(2))
+				.decompressGzip()
+				.finished(() => step(3))
+				.toBuffer(bufferOut => {
 					assert.deepEqual(bufferIn, bufferOut);
 					step(4)
-				}).on('finished', () => step(5))
-			).on('finished', () => step(6, done))
+				})
+				.finished(() => step(5, done))
 		})
 	})
 
 	describe('compressBrotli() | decompressBrotli()', () => {
 		it('should work without errors', done => {
 			let step = helper.stepper();
-			Havel.pipeline(
-				Havel.fromBuffer(bufferIn).on('finished', () => step(1)),
-				Havel.compressBrotli({level:1}).on('finished', () => step(2)),
-				Havel.decompressBrotli().on('finished', () => step(3)),
-				Havel.toBuffer(bufferOut => {
+			Havel.pipeline()
+				.fromBuffer(bufferIn)
+				.finished(() => step(1))
+				.compressBrotli({level:1})
+				.finished(() => step(2))
+				.decompressBrotli()
+				.finished(() => step(3))
+				.toBuffer(bufferOut => {
 					assert.deepEqual(bufferIn, bufferOut);
 					step(4)
-				}).on('finished', () => step(5))
-			).on('finished', () => step(6, done))
+				})
+				.finished(() => step(5, done))
 		})
 	})
 })

@@ -16,30 +16,36 @@ describe('object', () => {
 	describe('objectToJSON() | JSONToObject()', () => {
 		it('should work without errors', done => {
 			let step = helper.stepper();
-			Havel.pipeline(
-				Havel.fromArray(arrayIn).on('finished', () => step(1)),
-				Havel.objectToJSON().on('finished', () => step(2)),
-				Havel.JSONToObject().on('finished', () => step(3)),
-				Havel.toArray(arrayOut => {
+			Havel.pipeline()
+				.fromArray(arrayIn)
+				.finished(() => step(1))
+				.objectToJSON()
+				.finished(() => step(2))
+				.JSONToObject()
+				.finished(() => step(3))
+				.toArray(arrayOut => {
 					assert.deepEqual(arrayIn, arrayOut);
 					step(4)
-				}).on('finished', () => step(5))
-			).on('finished', () => step(6, done))
+				})
+				.finished(() => step(5, done))
 		})
 	})
 
 	describe('serializeObject() | deserializeObject()', () => {
 		it('should work without errors', done => {
 			let step = helper.stepper();
-			Havel.pipeline(
-				Havel.fromArray(arrayIn).on('finished', () => step(1)),
-				Havel.serializeObject().on('finished', () => step(2)),
-				Havel.deserializeObject().on('finished', () => step(3)),
-				Havel.toArray(arrayOut => {
+			Havel.pipeline()
+				.fromArray(arrayIn)
+				.finished(() => step(1))
+				.serializeObject()
+				.finished(() => step(2))
+				.deserializeObject()
+				.finished(() => step(3))
+				.toArray(arrayOut => {
 					assert.deepEqual(arrayIn, arrayOut);
 					step(4)
-				}).on('finished', () => step(5))
-			).on('finished', () => step(6, done))
+				})
+				.finished(() => step(5, done))
 		})
 	})
 });

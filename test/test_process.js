@@ -16,15 +16,34 @@ describe('process', () => {
 	describe('compressXZ() | decompressXZ()', () => {
 		it('should work without errors', done => {
 			let step = helper.stepper();
-			Havel.pipeline(
-				Havel.fromBuffer(bufferIn).on('finished', () => step(1)),
-				Havel.compressXZ({level:1}).on('finished', () => step(2)),
-				Havel.decompressXZ().on('finished', () => step(3)),
-				Havel.toBuffer(bufferOut => {
+			Havel.pipeline()
+				.fromBuffer(bufferIn)
+				.finished(() => step(1))
+				.compressXZ({level:1})
+				.finished(() => step(2))
+				.decompressXZ()
+				.finished(() => step(3))
+				.toBuffer(bufferOut => {
 					assert.deepEqual(bufferIn, bufferOut);
 					step(4)
-				}).on('finished', () => step(5))
-			).on('finished', () => step(6, done))
+				})
+				.finished(() => step(5, done))
+		})
+	})
+
+	describe('spawn(head)', () => {
+		it('should work without errors', done => {
+			let step = helper.stepper();
+			Havel.pipeline()
+				.fromBuffer(bufferIn)
+				.finished(() => step(4))
+				.spawn('head', ['-c', 4096])
+				.finished(() => step(1))
+				.toBuffer(bufferOut => {
+					assert.deepEqual(bufferIn.slice(0,4096), bufferOut);
+					step(2)
+				})
+				.finished(() => step(3, done))
 		})
 	})
 })
