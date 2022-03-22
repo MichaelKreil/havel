@@ -1,4 +1,6 @@
-"use strict"
+'use strict'
+
+/* global describe, it */
 
 const Havel = require('../');
 const assert = require('assert');

@@ -1,4 +1,4 @@
-"use strict"
+'use strict'
 
 const Havel = require('./lib/havel.js');
 
@@ -13,4 +13,4 @@ const Havel = require('./lib/havel.js');
 	'string',
 ].forEach(moduleName => require(`./lib/${moduleName}.js`)(Havel))
 
-module.exports = Havel;
+module.exports = Havel

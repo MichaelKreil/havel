@@ -1,4 +1,6 @@
-"use strict"
+'use strict'
+
+/* global describe, it */
 
 const Havel = require('../');
 const assert = require('assert');
@@ -43,7 +45,7 @@ describe('basics', () => {
 			Havel.pipeline()
 				.fromArray(arrayIn)
 				.finished(() => step(1))
-				.each(e => 'e')
+				.each(() => 'e')
 				.finished(() => step(2))
 				.toArray(arrayOut => {
 					assert.deepEqual(arrayIn, arrayOut);
