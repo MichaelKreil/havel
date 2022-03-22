@@ -2,6 +2,7 @@
 
 const Havel = require('../');
 const assert = require('assert');
+const helper = require('./helper.js');
 
 const getLetters = n => {
 	let chars = Array.from({length:n}, v => Math.floor(97+Math.random()*26));
@@ -19,77 +20,37 @@ for (let i = 0; i < 256; i++) {
 
 describe('keyValue', () => {
 
-	require('./helper.js').checkCompleteness('../lib/keyValue.js',
+	helper.checkCompleteness('../lib/keyValue.js',
 		'bufferToKeyValue,keyValueToBuffer,keyValueToStream,streamToKeyValue,KeyValue'
 	);
 
-		describe('keyValueToBuffer() | bufferToKeyValue', () => {
-			it('input === output', done => {
-				Havel.pipeline([
-					Havel.fromArray(listIn),
-					Havel.keyValueToBuffer(),
-					Havel.bufferToKeyValue(),
-					Havel.toArray(listOut => {
-						assert.deepEqual(listIn, listOut);
-						done();
-					})
-				])
-			})
-		})
-
-		describe('keyValueToStream() | streamToKeyValue', () => {
-			it('input === output', done => {
-				Havel.pipeline([
-					Havel.fromArray(listIn),
-					Havel.keyValueToStream(),
-					Havel.streamToKeyValue(),
-					Havel.toArray(listOut => {
-						assert.deepEqual(listIn, listOut);
-						done();
-					})
-				])
-			})
-		})
-/*
-
-	describe('split() | join()', () => {
-		it('output === input', done => {
+	describe('keyValueToBuffer() | bufferToKeyValue', () => {
+		it('input === output', done => {
+			let step = helper.stepper();
 			Havel.pipeline([
-				Havel.fromBuffer(bufferIn),
-				Havel.split(),
-				Havel.join(),
-				Havel.toBuffer(bufferOut => {
-					assert.deepEqual(bufferIn, bufferOut);
-					done();
-				})
-			])
+				Havel.fromArray(listIn).on('finished', () => step(1)),
+				Havel.keyValueToBuffer().on('finished', () => step(2)),
+				Havel.bufferToKeyValue().on('finished', () => step(3)),
+				Havel.toArray(listOut => {
+					assert.deepEqual(listIn, listOut);
+					step(4)
+				}).on('finished', () => step(5))
+			], () => step(6, done))
 		})
 	})
 
-	describe('toBase64()', () => {
-		it('correct conversion', done => {
+	describe('keyValueToStream() | streamToKeyValue', () => {
+		it('input === output', done => {
+			let step = helper.stepper();
 			Havel.pipeline([
-				Havel.fromBuffer(bufferIn),
-				Havel.toBase64(),
-				Havel.toBuffer(bufferOut => {
-					assert.deepEqual(bufferOut, Buffer.from(bufferIn.toString('base64')));
-					done();
-				})
-			])
+				Havel.fromArray(listIn).on('finished', () => step(1)),
+				Havel.keyValueToStream().on('finished', () => step(2)),
+				Havel.streamToKeyValue().on('finished', () => step(3)),
+				Havel.toArray(listOut => {
+					assert.deepEqual(listIn, listOut);
+					step(4);
+				}).on('finished', () => step(5))
+			], () => step(6, done))
 		})
 	})
-
-	describe('toHex()', () => {
-		it('correct conversion', done => {
-			Havel.pipeline([
-				Havel.fromBuffer(bufferIn),
-				Havel.toHex(),
-				Havel.toBuffer(bufferOut => {
-					assert.deepEqual(bufferOut, Buffer.from(bufferIn.toString('hex')));
-					done();
-				})
-			])
-		})
-	})
-	*/
 })
