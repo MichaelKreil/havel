@@ -27,7 +27,7 @@ describe('keyValue', () => {
 	describe('keyValueToBuffer() | bufferToKeyValue', () => {
 		it('input === output', done => {
 			let step = helper.stepper();
-			Havel.pipeline([
+			Havel.pipeline(
 				Havel.fromArray(listIn).on('finished', () => step(1)),
 				Havel.keyValueToBuffer().on('finished', () => step(2)),
 				Havel.bufferToKeyValue().on('finished', () => step(3)),
@@ -35,14 +35,14 @@ describe('keyValue', () => {
 					assert.deepEqual(listIn, listOut);
 					step(4)
 				}).on('finished', () => step(5))
-			], () => step(6, done))
+			).on('finished', () => step(6, done))
 		})
 	})
 
 	describe('keyValueToStream() | streamToKeyValue', () => {
 		it('input === output', done => {
 			let step = helper.stepper();
-			Havel.pipeline([
+			Havel.pipeline(
 				Havel.fromArray(listIn).on('finished', () => step(1)),
 				Havel.keyValueToStream().on('finished', () => step(2)),
 				Havel.streamToKeyValue().on('finished', () => step(3)),
@@ -50,7 +50,7 @@ describe('keyValue', () => {
 					assert.deepEqual(listIn, listOut);
 					step(4);
 				}).on('finished', () => step(5))
-			], () => step(6, done))
+			).on('finished', () => step(6, done))
 		})
 	})
 })

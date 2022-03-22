@@ -16,7 +16,7 @@ describe('process', () => {
 	describe('compressXZ() | decompressXZ()', () => {
 		it('should work without errors', done => {
 			let step = helper.stepper();
-			Havel.pipeline([
+			Havel.pipeline(
 				Havel.fromBuffer(bufferIn).on('finished', () => step(1)),
 				Havel.compressXZ({level:1}).on('finished', () => step(2)),
 				Havel.decompressXZ().on('finished', () => step(3)),
@@ -24,7 +24,7 @@ describe('process', () => {
 					assert.deepEqual(bufferIn, bufferOut);
 					step(4)
 				}).on('finished', () => step(5))
-			], () => step(6, done))
+			).on('finished', () => step(6, done))
 		})
 	})
 })

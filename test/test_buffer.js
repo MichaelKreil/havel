@@ -4,7 +4,7 @@ const Havel = require('../');
 const assert = require('assert');
 const helper = require('./helper.js');
 
-Havel.pipeline([Havel.noiseBuffers(1024, 1024), Havel.toArray(buffersIn => {
+Havel.pipeline(Havel.noiseBuffers(1024, 1024), Havel.toArray(buffersIn => {
 
 	let bufferIn = Buffer.concat(buffersIn);
 
@@ -17,30 +17,30 @@ Havel.pipeline([Havel.noiseBuffers(1024, 1024), Havel.toArray(buffersIn => {
 		describe('noiseBuffers()', () => {
 			it('should work without errors', done => {
 				let step = helper.stepper();
-				Havel.pipeline([
+				Havel.pipeline(
 					Havel.noiseBuffers(1024, 4096).on('finished', () => step(1)),
 					Havel.dump().on('finished', () => step(2))
-				], () => step(3, done))
+				).on('finished', () => step(3, done))
 			})
 		})
 
 		describe('fromBuffer() | toBuffer()', () => {
 			it('should work without errors', done => {
 				let step = helper.stepper();
-				Havel.pipeline([
+				Havel.pipeline(
 					Havel.fromBuffer(bufferIn).on('finished', () => step(1)),
 					Havel.toBuffer(bufferOut => {
 						assert.deepEqual(bufferIn, bufferOut);
 						step(2)
 					}).on('finished', () => step(3))
-				], () => step(4, done))
+				).on('finished', () => step(4, done))
 			})
 		})
 
 		describe('streamToChunks()', () => {
 			it('should work without errors', done => {
 				let step = helper.stepper();
-				Havel.pipeline([
+				Havel.pipeline(
 					Havel.fromBuffer(bufferIn).on('finished', () => step(1)),
 					Havel.streamToChunks(4096).on('finished', () => step(2)),
 					Havel.toArray(buffersOut => {
@@ -48,14 +48,14 @@ Havel.pipeline([Havel.noiseBuffers(1024, 1024), Havel.toArray(buffersIn => {
 						assert.deepEqual(bufferIn, Buffer.concat(buffersOut));
 						step(3);
 					}).on('finished', () => step(4))
-				], () => step(5, done))
+				).on('finished', () => step(5, done))
 			})
 		})
 
 		describe('boxesToStream | streamToBoxes', () => {
 			it('should work without errors', done => {
 				let step = helper.stepper();
-				Havel.pipeline([
+				Havel.pipeline(
 					Havel.fromArray(buffersIn).on('finished', () => step(1)),
 					Havel.boxesToStream().on('finished', () => step(2)),
 					Havel.streamToBoxes().on('finished', () => step(3)),
@@ -63,8 +63,8 @@ Havel.pipeline([Havel.noiseBuffers(1024, 1024), Havel.toArray(buffersIn => {
 						assert.deepEqual(buffersIn, buffersOut);
 						step(4)
 					}).on('finished', () => step(5))
-				], () => step(6, done))
+				).on('finished', () => step(6, done))
 			})
 		})
 	})
-})])
+}))

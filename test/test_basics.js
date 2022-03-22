@@ -15,44 +15,44 @@ describe('basics', () => {
 	describe('fromArray() | toArray()', () => {
 		it('should return input array', done => {
 			let step = helper.stepper();
-			Havel.pipeline([
+			Havel.pipeline(
 				Havel.fromArray(arrayIn).on('finished', () => step(1)),
 				Havel.toArray(arrayOut => {
 					assert.deepEqual(arrayIn, arrayOut);
 					step(2);
 				}).on('finished', () => step(3)),
-			], () => step(4, done))
+			).on('finished', () => step(4, done))
 		})
 	})
 
 	describe('dump()', () => {
 		it('should work without errors', done => {
 			let step = helper.stepper();
-			Havel.pipeline([
+			Havel.pipeline(
 				Havel.fromArray(arrayIn).on('finished', () => step(1)),
 				Havel.dump().on('finished', () => step(2))
-			], () => step(3, done))
+			).on('finished', () => step(3, done))
 		})
 	})
 
 	describe('each()', () => {
 		it('should return input array', done => {
 			let step = helper.stepper();
-			Havel.pipeline([
+			Havel.pipeline(
 				Havel.fromArray(arrayIn).on('finished', () => step(1)),
 				Havel.each(e => 'e').on('finished', () => step(2)),
 				Havel.toArray(arrayOut => {
 					assert.deepEqual(arrayIn, arrayOut);
 					step(3);
 				}).on('finished', () => step(4)),
-			], () => step(5, done))
+			).on('finished', () => step(5, done))
 		})
 	})
 
 	describe('eachPairWise()', () => {
 		it('should return input array', done => {
 			let step = helper.stepper();
-			Havel.pipeline([
+			Havel.pipeline(
 				Havel.fromArray(arrayIn).on('finished', () => step(1)),
 				Havel.eachPairWise((a,b) => {
 					assert.ok(a, 'first value was not set');
@@ -62,14 +62,14 @@ describe('basics', () => {
 					assert.deepEqual(arrayIn, arrayOut);
 					step(3);
 				}).on('finished', () => step(4)),
-			], () => step(5, done))
+			).on('finished', () => step(5, done))
 		})
 	})
 
 	describe('head()', () => {
 		it('should return first 100 elements of input array', done => {
 			let step = helper.stepper();
-			Havel.pipeline([
+			Havel.pipeline(
 				Havel.fromArray(arrayIn).on('finished', () => assert.fail('should never happen')),
 				Havel.head(100).on('finished', () => step(1)),
 				Havel.toArray(arrayOut => {
@@ -77,32 +77,32 @@ describe('basics', () => {
 					assert.deepEqual(arrayIn.slice(0,100), arrayOut)
 					step(2);
 				}).on('finished', () => step(3))
-			], () => step(4, done))
+			).on('finished', () => step(4, done))
 		})
 	})
 
 	describe('log()', () => {
 		it('should work without errors', done => {
 			let step = helper.stepper();
-			Havel.pipeline([
+			Havel.pipeline(
 				Havel.fromArray(['test']).on('finished', () => step(1)),
 				Havel.log().on('finished', () => step(2)),
 				Havel.dump().on('finished', () => step(3))
-			], () => step(4, done))
+			).on('finished', () => step(4, done))
 		})
 	})
 
 	describe('map()', () => {
 		it('should return input array', done => {
 			let step = helper.stepper();
-			Havel.pipeline([
+			Havel.pipeline(
 				Havel.fromArray(arrayIn).on('finished', () => step(1)),
 				Havel.map(v => v*2).on('finished', () => step(2)),
 				Havel.toArray(arrayOut => {
 					assert.deepEqual(arrayIn.map(v => v*2), arrayOut)
 					step(3);
 				}).on('finished', () => step(4))
-			], () => step(5, done))
+			).on('finished', () => step(5, done))
 		})
 	})
 });

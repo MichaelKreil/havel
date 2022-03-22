@@ -16,7 +16,7 @@ describe('object', () => {
 	describe('objectToJSON() | JSONToObject()', () => {
 		it('should work without errors', done => {
 			let step = helper.stepper();
-			Havel.pipeline([
+			Havel.pipeline(
 				Havel.fromArray(arrayIn).on('finished', () => step(1)),
 				Havel.objectToJSON().on('finished', () => step(2)),
 				Havel.JSONToObject().on('finished', () => step(3)),
@@ -24,14 +24,14 @@ describe('object', () => {
 					assert.deepEqual(arrayIn, arrayOut);
 					step(4)
 				}).on('finished', () => step(5))
-			], () => step(6, done))
+			).on('finished', () => step(6, done))
 		})
 	})
 
 	describe('serializeObject() | deserializeObject()', () => {
 		it('should work without errors', done => {
 			let step = helper.stepper();
-			Havel.pipeline([
+			Havel.pipeline(
 				Havel.fromArray(arrayIn).on('finished', () => step(1)),
 				Havel.serializeObject().on('finished', () => step(2)),
 				Havel.deserializeObject().on('finished', () => step(3)),
@@ -39,7 +39,7 @@ describe('object', () => {
 					assert.deepEqual(arrayIn, arrayOut);
 					step(4)
 				}).on('finished', () => step(5))
-			], () => step(6, done))
+			).on('finished', () => step(6, done))
 		})
 	})
 });
