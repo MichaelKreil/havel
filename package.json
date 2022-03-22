@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "lint": "./node_modules/.bin/eslint index.js lib/*.js test/*.js",
+    "lint": "./node_modules/.bin/eslint index.js lib/*.js test/*.js bin/*.js",
     "prepublishOnly": "npm test"
   },
   "repository": {
