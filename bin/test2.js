@@ -3,8 +3,7 @@
 const Havel = require('../');
 
 Havel.pipeline()
-	.fromBuffer(Buffer.alloc(1024*1024))
-
-	.spawn('head', ['-c', 4096])
-	//.dump()
-	.toBuffer(bufferOut => console.log(bufferOut.length))
+	.fromArray([-1,0,0,2,3].map(id => new Havel.KeyValue(id,'nix')))
+	.keyValueCheckOrder((a,b) => a < b)
+	.keyValueToStream()
+	.dump()
