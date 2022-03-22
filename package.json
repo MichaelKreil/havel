@@ -4,7 +4,8 @@
   "description": "streams done … ehm … differently",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+	 "prepublishOnly": "npm test"
   },
   "repository": {
     "type": "git",
