@@ -38,7 +38,6 @@ describe('process', () => {
 			let step = helper.stepper();
 			Havel.pipeline()
 				.fromBuffer(bufferIn)
-				.finished(() => step(4))
 				.spawn('head', ['-c', 4096])
 				.finished(() => step(1))
 				.toBuffer(bufferOut => {
