@@ -20,7 +20,6 @@ describe('stream', () => {
 		it('should work without errors', done => {
 			let step = helper.stepper();
 
-			console.log('HALLO');
 			Havel.pipeline()
 				.fromBuffer(bufferIn)
 				.finished(() => step(1))
