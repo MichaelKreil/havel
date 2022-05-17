@@ -1,24 +1,25 @@
 {
-  "name": "havel",
-  "version": "0.6.1",
-  "description": "streams done … ehm … differently",
-  "main": "index.js",
-  "scripts": {
-    "test": "mocha",
-    "lint": "./node_modules/.bin/eslint index.js lib/*.js test/*.js bin/*.js",
-    "jsdoc": "node_modules/.bin/jsdoc -c jsdoc.json",
-    "prepublishOnly": "npm test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/MichaelKreil/havel.git"
-  },
-  "author": "Michael Kreil",
-  "license": "ISC",
-  "devDependencies": {
-    "eslint": "^8.11.0",
-	 "jaguarjs-jsdoc": "github:MichaelKreil/jaguarjs-jsdoc",
-    "jsdoc": "^3.6.10",
-    "mocha": "^9.2.2"
-  }
+	"name": "havel",
+	"version": "0.6.1",
+	"description": "streams done … ehm … differently",
+	"main": "index.js",
+	"scripts": {
+		"test": "mocha",
+		"lint": "./node_modules/.bin/eslint index.js lib/*.js test/*.js bin/*.js",
+		"jsdoc": "node_modules/.bin/jsdoc -c jsdoc.json",
+		"build": "npm run lint; npm run test; npm run jsdoc",
+		"prepublishOnly": "npm test"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/MichaelKreil/havel.git"
+	},
+	"author": "Michael Kreil",
+	"license": "ISC",
+	"devDependencies": {
+		"eslint": "^8.11.0",
+		"jaguarjs-jsdoc": "github:MichaelKreil/jaguarjs-jsdoc",
+		"jsdoc": "^3.6.10",
+		"mocha": "^9.2.2"
+	}
 }
