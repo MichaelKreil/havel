@@ -44,13 +44,13 @@ describe('keyValue', () => {
 		it('should be valid', done => {
 			Havel.pipeline()
 				.fromArray([-1,0,1,2,3].map(id => new Havel.KeyValue(id,'nix')))
-				.keyValueCheckOrder((a,b) => a < b)
+				.keyValueCheckOrder()
 				.drain().finished(done)
 		})
 		it('should be invalid', done => {
 			Havel.pipeline()
 				.fromArray([-1,0,0,2,3].map(id => new Havel.KeyValue(id,'nix')))
-				.keyValueCheckOrder((a,b) => a < b, done)
+				.keyValueCheckOrder(done)
 				.drain()
 		})
 	})
@@ -79,7 +79,6 @@ describe('keyValue', () => {
 				.fromArray([0,1,2,4,5].map(id => new Havel.KeyValue(id,'nix')))
 				.keyValueMerge(
 					Havel.pipeline().fromArray([0,1,3,4].map(id => new Havel.KeyValue(id,'nix'))),
-					(a,b) => a-b,
 					(e1,e2) => {
 						if (e1 && e2 && (e1.key !== e2.key)) assert.fail('if both entries, then their keys should be equal');
 						return e1 || e2;
