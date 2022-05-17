@@ -1,6 +1,6 @@
 {
 	"name": "havel",
-	"version": "0.6.1",
+	"version": "0.7.0",
 	"description": "streams done … ehm … differently",
 	"main": "index.js",
 	"scripts": {
