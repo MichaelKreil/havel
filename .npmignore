@@ -1,0 +1,8 @@
+
+.eslintrc.js
+.github/
+bin/
+data/
+docs/
+jsdoc.json
+test/
