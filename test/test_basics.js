@@ -34,13 +34,13 @@ describe('basics', () => {
 		})
 	})
 
-	describe('each()', () => {
+	describe('forEach()', () => {
 		it('should return input array', done => {
 			let step = helper.stepper();
 			Havel.pipeline()
 				.fromArray(arrayIn)
 				.finished(() => step(1))
-				.each(() => 'e')
+				.forEach(() => 'e')
 				.finished(() => step(2))
 				.toArray(arrayOut => {
 					assert.deepEqual(arrayIn, arrayOut);
@@ -50,13 +50,13 @@ describe('basics', () => {
 		})
 	})
 
-	describe('eachPairWise()', () => {
+	describe('forEachPairWise()', () => {
 		it('should return input array', done => {
 			let step = helper.stepper();
 			Havel.pipeline()
 				.fromArray(arrayIn)
 				.finished(() => step(1))
-				.eachPairWise((a,b) => {
+				.forEachPairWise((a,b) => {
 					assert.ok(a, 'first value was not set');
 					assert.ok(b, 'second value was not set');
 				})
