@@ -2,15 +2,13 @@
 
 const Havel = require('./lib/havel.js');
 
-[
-	'basics',
-	'buffer',
-	'compress',
-	'keyValue',
-	'object',
-	'process',
-	'stream',
-	'string',
-].forEach(moduleName => require(`./lib/${moduleName}.js`)(Havel))
+require('./lib/basics.js'  )(Havel);
+require('./lib/buffer.js'  )(Havel);
+require('./lib/compress.js')(Havel);
+require('./lib/keyValue.js')(Havel);
+require('./lib/object.js'  )(Havel);
+require('./lib/process.js' )(Havel);
+require('./lib/stream.js'  )(Havel);
+require('./lib/string.js'  )(Havel);
 
 module.exports = Havel

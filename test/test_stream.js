@@ -16,14 +16,11 @@ let filename = resolve(os.tmpdir(), 'test.tmp');
 
 describe('stream', () => {
 
-	helper.checkCompleteness('../lib/stream.js',
-		'readFile,writeFile'
-	);
-
 	describe('readFile(), writeFile()', () => {
 		it('should work without errors', done => {
 			let step = helper.stepper();
 
+			console.log('HALLO');
 			Havel.pipeline()
 				.fromBuffer(bufferIn)
 				.finished(() => step(1))

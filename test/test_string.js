@@ -13,10 +13,6 @@ let bufferIn = Buffer.from(text);
 
 describe('string', () => {
 
-	helper.checkCompleteness('../lib/string.js',
-		'split,join,toBase64,toHex'
-	);
-
 	describe('split()', () => {
 		it('correct number of lines', done => {
 			let step = helper.stepper();

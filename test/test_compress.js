@@ -11,10 +11,6 @@ for (let j = 0; j < bufferIn.length; j += 4) bufferIn.writeUInt32LE(Math.floor(M
 
 describe('compress', () => {
 
-	helper.checkCompleteness('../lib/compress.js',
-		'compressGzip,decompressGzip,compressBrotli,decompressBrotli'
-	);
-
 	describe('compressGzip() | decompressGzip()', () => {
 		it('should work without errors', done => {
 			let step = helper.stepper();

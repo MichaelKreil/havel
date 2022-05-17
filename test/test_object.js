@@ -8,10 +8,6 @@ const helper = require('./helper.js');
 
 describe('object', () => {
 
-	helper.checkCompleteness('../lib/object.js',
-		'objectToJSON,JSONToObject,serializeObject,deserializeObject'
-	);
-
 	let arrayIn = [];
 	for (let i = 0; i < 256; i++) arrayIn[i] = {a:Math.random(), b:Math.random().toString()}
 

@@ -11,18 +11,13 @@ Havel.pipeline().noiseBuffers(1024, 1024).toArray(buffersIn => {
 	let bufferIn = Buffer.concat(buffersIn);
 
 	describe('buffer', () => {
-
-		helper.checkCompleteness('../lib/buffer.js',
-			'noiseBuffers,fromBuffer,toBuffer,streamToChunks,boxesToStream,streamToBoxes'
-		);
-
 		describe('noiseBuffers()', () => {
 			it('should work without errors', done => {
 				let step = helper.stepper();
 				Havel.pipeline()
 					.noiseBuffers(1024, 4096)
 					.finished(() => step(1))
-					.dump()
+					.drain()
 					.finished(() => step(2, done))
 			})
 		})

@@ -11,10 +11,6 @@ for (let j = 0; j < bufferIn.length; j += 4) bufferIn.writeUInt32LE(Math.floor(M
 
 describe('process', () => {
 
-	helper.checkCompleteness('../lib/process.js',
-		'spawn,compressXZ,decompressXZ'
-	);
-
 	describe('compressXZ() | decompressXZ()', () => {
 		it('should work without errors', done => {
 			let step = helper.stepper();
@@ -26,7 +22,7 @@ describe('process', () => {
 				.decompressXZ()
 				.finished(() => step(3))
 				.toBuffer(bufferOut => {
-					assert.deepEqual(bufferIn, bufferOut);
+					assert.deepEqual(bufferIn, bufferOut, 'bufferIn === bufferOut');
 					step(4)
 				})
 				.finished(() => step(5, done))
@@ -41,7 +37,7 @@ describe('process', () => {
 				.spawn('head', ['-c', 4096])
 				.finished(() => step(1))
 				.toBuffer(bufferOut => {
-					assert.deepEqual(bufferIn.slice(0,4096), bufferOut);
+					assert.deepEqual(bufferIn.slice(0,4096), bufferOut, 'bufferIn.slice(0,4096) === bufferOut');
 					step(2)
 				})
 				.finished(() => step(3, done))

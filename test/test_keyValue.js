@@ -22,10 +22,6 @@ for (let i = 0; i < 128; i++) {
 
 describe('keyValue', () => {
 
-	helper.checkCompleteness('../lib/keyValue.js',
-		'bufferToKeyValue,keyValueToBuffer,keyValueToStream,streamToKeyValue,keyValueCheckOrder,keyValueMerge'
-	);
-
 	describe('keyValueToBuffer | bufferToKeyValue', () => {
 		it('input === output', done => {
 			let step = helper.stepper();
@@ -49,14 +45,13 @@ describe('keyValue', () => {
 			Havel.pipeline()
 				.fromArray([-1,0,1,2,3].map(id => new Havel.KeyValue(id,'nix')))
 				.keyValueCheckOrder((a,b) => a < b)
-				.dump().finished(done)
+				.drain().finished(done)
 		})
 		it('should be invalid', done => {
 			Havel.pipeline()
 				.fromArray([-1,0,0,2,3].map(id => new Havel.KeyValue(id,'nix')))
-				.keyValueCheckOrder((a,b) => a < b)
-				.catch(done)
-				.dump()
+				.keyValueCheckOrder((a,b) => a < b, done)
+				.drain()
 		})
 	})
 
@@ -91,7 +86,7 @@ describe('keyValue', () => {
 					}
 				)
 				.keyValueCheckOrder((a,b) => a < b)
-				.dump().finished(done)
+				.drain().finished(done)
 		})
 	})
 })

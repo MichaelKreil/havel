@@ -7,11 +7,6 @@ const assert = require('assert');
 const helper = require('./helper.js');
 
 describe('basics', () => {
-
-	helper.checkCompleteness('../lib/basics.js',
-		'dump,each,eachPairWise,fromArray,head,log,map,toArray'
-	);
-
 	let arrayIn = Array.from({length: 1000}, () => Math.random());
 
 	describe('fromArray() | toArray()', () => {
@@ -28,13 +23,13 @@ describe('basics', () => {
 		})
 	})
 
-	describe('dump()', () => {
+	describe('drain()', () => {
 		it('should work without errors', done => {
 			let step = helper.stepper();
 			Havel.pipeline()
 				.fromArray(arrayIn)
 				.finished(() => step(1))
-				.dump()
+				.drain()
 				.finished(() => step(2, done));
 		})
 	})
@@ -99,7 +94,7 @@ describe('basics', () => {
 				.finished(() => step(1))
 				.log()
 				.finished(() => step(2))
-				.dump()
+				.drain()
 				.finished(() => step(3, done))
 		})
 	})
